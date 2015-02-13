@@ -1,0 +1,49 @@
+<molecule>
+ <atomArray>
+  <atom id="a1" elementType="C" x3="5.774705" y3="0.835554" z3="1.278155"/>
+  <atom id="a2" elementType="C" x3="6.793149" y3="0.892384" z3="2.384009"/>
+  <atom id="a3" elementType="O" x3="7.085673" y3="1.941245" z3="2.949511"/>
+  <atom id="a4" elementType="H" x3="5.561442" y3="-0.193194" z3="0.975057"/>
+  <atom id="a5" elementType="H" x3="6.155727" y3="1.385358" z3="0.413509"/>
+  <atom id="a6" elementType="N" x3="7.363733" y3="-0.313746" z3="2.693178"/>
+  <atom id="a7" elementType="C" x3="8.405591" y3="-0.447315" z3="3.702616"/>
+  <atom id="a8" elementType="C" x3="9.199684" y3="-1.732807" z3="3.401908"/>
+  <atom id="a9" elementType="O" x3="8.815925" y3="-2.561807" z3="2.576636"/>
+  <atom id="a10" elementType="H" x3="7.164987" y3="-1.141344" z3="2.137610"/>
+  <atom id="a11" elementType="H" x3="9.084373" y3="0.408870" z3="3.611603"/>
+  <atom id="a12" elementType="C" x3="7.811261" y3="-0.497758" z3="5.105152"/>
+  <atom id="a13" elementType="H" x3="7.148415" y3="-1.363076" z3="5.220061"/>
+  <atom id="a14" elementType="H" x3="7.223586" y3="0.400939" z3="5.319281"/>
+  <atom id="a15" elementType="H" x3="8.593864" y3="-0.577401" z3="5.866649"/>
+  <atom id="a16" elementType="N" x3="10.356658" y3="-1.880524" z3="4.138622"/>
+  <atom id="a17" elementType="H" x3="4.844138" y3="1.291962" z3="1.626402"/>
+  <atom id="a18" elementType="C" x3="11.240744" y3="-2.996329" z3="3.915185"/>
+  <atom id="a19" elementType="H" x3="10.711542" y3="-1.083899" z3="4.653007"/>
+  <atom id="a20" elementType="H" x3="11.919621" y3="-3.078567" z3="4.766991"/>
+  <atom id="a21" elementType="H" x3="11.812283" y3="-2.812603" z3="3.001590"/>
+  <atom id="a22" elementType="H" x3="10.665388" y3="-3.919490" z3="3.805334"/>
+ </atomArray>
+ <bondArray>
+  <bond atomRefs2="a1 a2" order="1"/>
+  <bond atomRefs2="a2 a3" order="2"/>
+  <bond atomRefs2="a2 a6" order="1"/>
+  <bond atomRefs2="a6 a7" order="1"/>
+  <bond atomRefs2="a7 a8" order="1"/>
+  <bond atomRefs2="a8 a9" order="2"/>
+  <bond atomRefs2="a8 a16" order="1"/>
+  <bond atomRefs2="a6 a10" order="1"/>
+  <bond atomRefs2="a7 a11" order="1"/>
+  <bond atomRefs2="a7 a12" order="1"/>
+  <bond atomRefs2="a12 a13" order="1"/>
+  <bond atomRefs2="a12 a14" order="1"/>
+  <bond atomRefs2="a12 a15" order="1"/>
+  <bond atomRefs2="a5 a1" order="1"/>
+  <bond atomRefs2="a4 a1" order="1"/>
+  <bond atomRefs2="a1 a17" order="1"/>
+  <bond atomRefs2="a16 a18" order="1"/>
+  <bond atomRefs2="a16 a19" order="1"/>
+  <bond atomRefs2="a18 a20" order="1"/>
+  <bond atomRefs2="a18 a21" order="1"/>
+  <bond atomRefs2="a18 a22" order="1"/>
+ </bondArray>
+</molecule>

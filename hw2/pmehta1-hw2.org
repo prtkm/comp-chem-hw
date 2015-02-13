@@ -1,0 +1,40 @@
+#+AUTHOR: Prateek Mehta
+#+date: <2015-02-13 Fri>
+#+title: Computational Chemistry HW2
+
+* Biphenyl
+
+The optimum phenyl-phenyl dihedral angle in biphenyl was found to be 52.4\deg with the MMF94 force field, and a conjugate gradient algorithm with an energy convergence of 10e-7. The experimental value is 44.4 \pm 1.2\deg, obtained by electron diffraction (http://www.sciencedirect.com/science/article/pii/0022286085850419). The deviation from experiment might be due to several factors. The quantum calculation used to parameterize the forcefield might have been off, or it might have been parameterized for other kind of molecules. Importantly, the reported barriers for torsion are around 6.0 \pm 2.1 kJ/mol, which are quite low. The experiment was very likely done at a temperature different from the one at which the forcefield was parameterized, which could also account for the deviation in the results. All in all, the forcefield does a pretty good job in calculating the dihedral angle. 
+
+When starting from a planar state, we obtained a different geometry because the optimization converged to a different local minima in the potential energy surface. Mathematically this is correct, however, the non-planar molecule is lower in energy and is closer to what is seen experiment.
+
+Here is are final cml files:
+
+- [[file:biphenyl-planar.cml]]
+
+- [[file:biphenyl-non-planar.cml]]
+
+* Capped Alanine
+
+Hydrogen bonding is stabilizing the structure of capped alanine. My values of \phi and \psi are -157.1\deg and 169.8\deg, respectively.
+
+A Ramachandran plot (also known as a Ramachandran diagram or a [\phi,\psi] plot),  is a way to visualize backbone dihedral angles \psi against \phi of amino acid residues in protein structure. A general Ramachandran plot is shown below.
+
+#+caption:"Ramachandran plot general 100K" by Dcrjsr. Licensed under CC BY 3.0 via Wikimedia Commons
+[[file:Ramachandran_plot_general_100K.jpg]]
+
+In the diagram, the white areas correspond to conformations where atoms in the polypeptide come closer than the sum of their van der Waals radi. These regions are generally sterically disallowed. The black regions correspond to conformations where there are no steric clashes, ie these are the allowed regions namely the \alpha-helical and \beta-sheet conformations. *My capped alanine structure lies in the \beta-sheet of the Ramachandran plot.*
+
+Here is the final cml file:
+- [[file:capped-alanine.cml]]
+
+
+* Met-enkephalin
+
+It seems brute force to try to explore local minima of this molecule using =Avogadro=, which is at this point the only simulation tool (if we can call it a simulation tool) we have used in the course. The obvious way to get a lower energy state is to try and bring the two charged ends close to each other, and try to form hydrogen bonds between H and O atoms. Using these two techniques I obtained a local minima of energy energy of *-27.9 kJ/mol*. It seems likely that forming a nice ring stablizied by H-bonds is the way to go to get low energy structures, but it is impractical to do something like this by hand. Techinques like Monte Carlo could be used, or even high temperature MD and metadynamics to better sample the potential energy surface.
+
+[[file:try-gly-gly-phe-met2.cml]]
+
+PS. Obviously I could have used the structure at http://earningmyhug.wikispaces.com/Chem+650%3B+Ex.2 as a starting point for my minimizations. The energy I obtained from here is *-214.187 kJ/mol* but that's cheating.
+
+[[file:cheating.cml]]
