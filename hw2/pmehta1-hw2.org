@@ -18,9 +18,8 @@ Here is are final cml files:
 
 Hydrogen bonding is stabilizing the structure of capped alanine. My values of \phi and \psi are -157.1\deg and 169.8\deg, respectively.
 
-A Ramachandran plot (also known as a Ramachandran diagram or a [\phi,\psi] plot),  is a way to visualize backbone dihedral angles \psi against \phi of amino acid residues in protein structure. A general Ramachandran plot is shown below.
+A Ramachandran plot (also known as a Ramachandran diagram or a [\phi,\psi] plot),  is a way to visualize backbone dihedral angles \psi against \phi of amino acid residues in protein structure. A general Ramachandran plot is shown below. ("Ramachandran plot general 100K" by Dcrjsr. Licensed under CC BY 3.0 via Wikimedia Commons).
 
-#+caption:"Ramachandran plot general 100K" by Dcrjsr. Licensed under CC BY 3.0 via Wikimedia Commons
 [[file:Ramachandran_plot_general_100K.jpg]]
 
 In the diagram, the white areas correspond to conformations where atoms in the polypeptide come closer than the sum of their van der Waals radi. These regions are generally sterically disallowed. The black regions correspond to conformations where there are no steric clashes, ie these are the allowed regions namely the \alpha-helical and \beta-sheet conformations. *My capped alanine structure lies in the \beta-sheet of the Ramachandran plot.*
