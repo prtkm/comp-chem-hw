@@ -33,7 +33,7 @@ Here is the final cml file:
 
 Using =Avogadro=, which the only simulation tool (if we can call it a simulation tool) so far, to sample the local minima is seems like a brute-force approach. The obvious way to get a lower energy state is to try and bring the two charged ends close to each other, and try to form hydrogen bonds between H and O atoms. Using these two techniques I obtained a local minima of energy energy of *-27.9 kJ/mol*. It seems likely that forming a nice ring stablizied by H-bonds is the way to go to get low energy structures, but it is impractical to do something like this by hand. Techinques like Monte Carlo could be used, or even high temperature MD or metadynamics to better sample the potential energy surface.
 
-[[file:try-gly-gly-phe-met.cml]]
+[[file:tyr-gly-gly-phe-met.cml]]
 
 PS. I could have used the structure at http://earningmyhug.wikispaces.com/Chem+650%3B+Ex.2 as a starting point for my minimizations. The energy I obtained from here is *-214.187 kJ/mol*, but then that's cheating.
 
