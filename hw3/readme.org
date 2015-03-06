@@ -1,2 +1,2 @@
 
-Find the homework at ./hw3.org
+Find the homework at [[./hw3.org]]
