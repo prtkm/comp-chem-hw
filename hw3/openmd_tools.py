@@ -1,8 +1,4 @@
 
-
-* Some python convenience functions to help with the homework
-
-#+BEGIN_SRC python :tangle openmd_tools.py
 import numpy as np
 import itertools
 import subprocess
@@ -38,6 +34,3 @@ def msd_slope_and_interval(t, msd, tstart=0):
 def get_diffusion_constant(t, msd, tstart=0, d=3):
    slope, interval = msd_slope_and_interval(t, msd, tstart) 
    return slope / 2. / d
-#+END_SRC
-
-More soon
