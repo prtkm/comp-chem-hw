@@ -7,7 +7,7 @@
 
 * Plotting useful quantities
 
-To plot these and for some convenient analysis functions I defined some python utility functions. See this [[*Python Utilities for reading OpenMD files][section]] for more details.
+To plot these and for some convenient analysis functions I defined some python utility functions. See [[file:openmd_tools.py]] for more details.
 
 ** Pair correlation functions
 
