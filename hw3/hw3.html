@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Computational Chemistry Homework 3</title>
+<!-- 2015-03-06 Fri 21:31 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prateek Mehta" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Computational Chemistry Homework 3</h1>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Plotting useful quantities</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+To plot these and for some convenient analysis functions I defined some python utility functions. See this <a href="#sec-5">section</a> for more details.
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Pair correlation functions</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Here we use a python function <code>calculate_pair_corr</code> to automate the collection of pair correlation data over all pairs of atom types. (I hope I got the function right!).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #0000FF;">from</span> openmd_tools <span style="color: #0000FF;">import</span> *
+<span style="color: #0000FF;">import</span> matplotlib.pyplot <span style="color: #0000FF;">as</span> plt
+
+<span style="color: #BA36A5;">pairs</span> = get_all_pairs([<span style="color: #008000;">'CT'</span>, <span style="color: #008000;">'OH'</span>, <span style="color: #008000;">'HO'</span>, <span style="color: #008000;">'H1'</span>])
+
+plt.figure(figsize=(6, 10))
+<span style="color: #0000FF;">for</span> i, pair <span style="color: #0000FF;">in</span> <span style="color: #006FE0;">enumerate</span>(pairs):
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   plt.subplot(5, 2, i+1)
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #BA36A5;">r</span>, <span style="color: #BA36A5;">gr</span> = calculate_pair_corr(<span style="color: #008000;">'calculations/collection.dump'</span>, *pair)
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   plt.plot(r, gr, lw=2)
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   plt.title(<span style="color: #008000;">'{0}-{1}'</span>.<span style="color: #006FE0;">format</span>(*pair))
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   plt.xlabel(<span style="color: #008000;">'r ($\AA$)'</span>)
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   plt.ylabel(<span style="color: #008000;">'g(r)'</span>)<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   plt.locator_params(nbins=3)
+plt.tight_layout()
+plt.savefig(<span style="color: #008000;">'images/gofr.png'</span>, dpi=200)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/gofr.png" alt="gofr.png" width="400" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Mean Squared Displacement</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+The plot is shown below.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #0000FF;">from</span> openmd_tools <span style="color: #0000FF;">import</span> read_msd
+<span style="color: #0000FF;">import</span> matplotlib.pyplot <span style="color: #0000FF;">as</span> plt
+
+plt.figure(figsize=(3,4))
+<span style="color: #BA36A5;">t</span>, <span style="color: #BA36A5;">msd</span> = read_msd(<span style="color: #008000;">'calculations/collection.rcorr'</span>)
+plt.plot(t/1000.,msd, lw=2)
+plt.ylabel(<span style="color: #008000;">'MSD ($\AA^{2}$)'</span>)
+plt.xlabel(<span style="color: #008000;">'Time (ps)'</span>)
+plt.ylim(0,275)
+plt.locator_params(nbins=5, axis=<span style="color: #008000;">'x'</span>)
+plt.tight_layout()
+plt.savefig(<span style="color: #008000;">'images/msd.png'</span>, dpi=300)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/msd.png" alt="msd.png" width="400" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Velocity Autocorrelation Function</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+The plot for the normalized velocity autocorrelation function is shown below.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #0000FF;">from</span> openmd_tools <span style="color: #0000FF;">import</span> read_vel_corr
+<span style="color: #0000FF;">import</span> matplotlib.pyplot <span style="color: #0000FF;">as</span> plt
+
+plt.figure(figsize=(3,4))
+<span style="color: #BA36A5;">t</span>, <span style="color: #BA36A5;">vcorr</span> = read_vel_corr(<span style="color: #008000;">'calculations/fine.vcorr'</span>)
+plt.plot(t/1000.,vcorr/vcorr[0], lw=1)
+plt.ylabel(<span style="color: #008000;">'Velocity Autocorrelation Function'</span>)
+plt.xlabel(<span style="color: #008000;">'Time (ps)'</span>)
+plt.xlim(0,1.5)
+plt.ylim(-0.3, 1)
+plt.locator_params(nbins=5, axis=<span style="color: #008000;">'x'</span>)
+plt.tight_layout()
+plt.savefig(<span style="color: #008000;">'images/vcorr.png'</span>, dpi=300)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/vcorr.png" alt="vcorr.png" width="400" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Methanol MD Trajectory</h2>
+<div class="outline-text-2" id="text-2">
+
+<div class="figure">
+<p><img src="images/methanol.gif" alt="methanol.gif" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Diffusion Constants</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+To calculate the diffusion constant from the slope of the MSD data we perform a linear regression fit to estimate the slope. The value calculated from the Green-Kubo relations matches fairly well with the
+Einstien relation, considering the small magnitude of the quantity. One source that might have introduced some error is my approach of calculating D<sub>Green-Kubo</sub> without non-discretizing it. Both calculated values are very close the to experimental value of of 1.46e-9 m<sup>2</sup>/s reported in this <a href="http://pubs.acs.org/doi/abs/10.1021/j100270a039">paper</a>.
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #0000FF;">from</span> openmd_tools <span style="color: #0000FF;">import</span> *
+<span style="color: #0000FF;">import</span> matplotlib.pyplot <span style="color: #0000FF;">as</span> plt
+<span style="color: #0000FF;">import</span> numpy <span style="color: #0000FF;">as</span> np
+
+<span style="color: #BA36A5;">t</span>, <span style="color: #BA36A5;">msd</span> = read_msd(<span style="color: #008000;">'calculations/collection.rcorr'</span>)
+<span style="color: #BA36A5;">slope</span>, <span style="color: #BA36A5;">interval</span> = msd_slope_and_interval(t, msd, tstart=0)
+<span style="color: #BA36A5;">msd2</span> = np.dot(np.column_stack([t**1, t**0]), np.array([slope, interval]))
+
+plt.figure(figsize=(3,4))
+plt.plot(t/1000, msd, lw=2, label=<span style="color: #008000;">'calculated data'</span>)
+plt.plot(t/1000, msd2, <span style="color: #008000;">'r--'</span>, lw=2, label=<span style="color: #008000;">'linear fit'</span>)
+plt.ylabel(<span style="color: #008000;">'MSD ($\AA^{2}$)'</span>)
+plt.xlabel(<span style="color: #008000;">'Time (ps)'</span>)
+plt.legend(loc=<span style="color: #008000;">'best'</span>, fontsize=8)
+plt.ylim(0,275)
+plt.locator_params(nbins=5, axis=<span style="color: #008000;">'x'</span>)
+plt.tight_layout()
+plt.savefig(<span style="color: #008000;">'images/msd-fit.png'</span>, dpi=300)
+
+<span style="color: #BA36A5;">D_einstien</span> = get_D_einstien(t, msd) * 1e-5 <span style="color: #8D8D84;"># </span><span style="color: #8D8D84; font-style: italic;">A**2/fs to m**2/s</span>
+<span style="color: #0000FF;">print</span> (<span style="color: #008000;">'The Diffusion coefficient from the Einstien Relation is : {0:1.3f}e-9 m^{{2}}/s'</span>.<span style="color: #006FE0;">format</span>(D_einstien*1e9))
+
+<span style="color: #BA36A5;">t</span>, <span style="color: #BA36A5;">vcorr</span> = read_vel_corr(<span style="color: #008000;">'calculations/fine.vcorr'</span>)
+<span style="color: #BA36A5;">D_gk</span> = get_D_greenkubo(t, vcorr) * 1e-5 <span style="color: #8D8D84;">#</span><span style="color: #8D8D84; font-style: italic;">A**2/fs to m**2/s</span>
+<span style="color: #0000FF;">print</span>(<span style="color: #008000;">'The Diffusion coefficient from the Green-Kubo Relation is : {0:1.3f}e-9 m^{{2}}/s'</span>.<span style="color: #006FE0;">format</span>(D_gk*1e9))
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-org">The Diffusion coefficient from the Einstien Relation is : 1.638e-9 m^{2}/s
+The Diffusion coefficient from the Green-Kubo Relation is : 1.017e-9 m^{2}/s
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/msd-fit.png" alt="msd-fit.png" width="400" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Power Spectrum</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+The plot of the power spectrum is shown below.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">vcorr2spectrum -f calculations/fine.vcorr -o calculations/fine.pspect
+</pre>
+</div>
+
+<pre class="example">
+reading File
+</pre>
+
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #0000FF;">from</span> openmd_tools <span style="color: #0000FF;">import</span> read_power_spectrum
+<span style="color: #0000FF;">import</span> matplotlib.pyplot <span style="color: #0000FF;">as</span> plt
+
+<span style="color: #BA36A5;">t</span>, <span style="color: #BA36A5;">p</span> = read_power_spectrum(<span style="color: #008000;">'calculations/fine.pspect'</span>)
+
+plt.figure(figsize=(3,4))
+plt.plot(t / 1000, p * 1000, lw=1)
+plt.ylabel(<span style="color: #008000;">'Power (arb. units)'</span>)
+plt.xlabel(<span style="color: #008000;">'Time (ps)'</span>)
+plt.xlim(0, 1.65)
+plt.locator_params(nbins=5, axis=<span style="color: #008000;">'x'</span>)
+plt.tight_layout()
+plt.savefig(<span style="color: #008000;">'images/pspect.png'</span>, dpi=300)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/pspect.png" alt="pspect.png" width="400" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Python Utilities for reading OpenMD files</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Here we define some python utility functions that will help with the various problems in this problem set. This file is available at <a href="./openmd_tools.py">./openmd_tools.py</a>. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #0000FF;">import</span> numpy <span style="color: #0000FF;">as</span> np
+<span style="color: #0000FF;">import</span> itertools
+<span style="color: #0000FF;">import</span> subprocess
+<span style="color: #0000FF;">import</span> matplotlib.pyplot <span style="color: #0000FF;">as</span> plt
+<span style="color: #0000FF;">import</span> os
+
+<span style="color: #0000FF;">def</span> <span style="color: #006699;">get_all_pairs</span>(atomtypes):
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #008000;">'''</span>
+<span style="color: #008000;">    Returns a list of all possible pairs from a list of atomic speicies.</span>
+<span style="color: #008000;">    '''</span>
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #0000FF;">return</span> <span style="color: #006FE0;">list</span>(itertools.combinations_with_replacement(atomtypes, 2))
+
+<span style="color: #0000FF;">def</span> <span style="color: #006699;">calculate_pair_corr</span>(filepath, atom1, atom2):
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #008000;">'''</span>
+<span style="color: #008000;">    Convenience function to provide for fast calculations of pair correlation functions</span>
+<span style="color: #008000;">    Strangely, I could not get StaticProps to dump to a specified folder/file, </span>
+<span style="color: #008000;">    so we have to take care to change directories and return data</span>
+<span style="color: #008000;">    '''</span>
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #0000FF;">try</span>:
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #8D8D84;"># </span><span style="color: #8D8D84; font-style: italic;">If a path is spefified</span>
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #BA36A5;">wd</span>, <span style="color: #BA36A5;">filename</span> = filepath.rsplit(<span style="color: #008000;">'.'</span>)[0].split(<span style="color: #008000;">'/'</span>)
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #0000FF;">except</span>:
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #8D8D84;"># </span><span style="color: #8D8D84; font-style: italic;">If only filename is specified</span>
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #BA36A5;">filename</span> = filepath.rsplit(<span style="color: #008000;">'.'</span>)
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #BA36A5;">wd</span> = <span style="color: #008000;">'.'</span>
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #BA36A5;">cmd</span> = <span style="color: #008000;">'StaticProps -i {2}.dump -g --sele1="select {0}" --sele2="select {1}" '</span>
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #BA36A5;">cmd</span> = cmd.<span style="color: #006FE0;">format</span>(atom1, atom2, filename)
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #BA36A5;">cwd</span> = os.getcwd()
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   os.chdir(wd)
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   subprocess.call(cmd, shell=<span style="color: #D0372D;">True</span>)
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   os.chdir(cwd)
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #0000FF;">return</span> read_pair_corr(<span style="color: #008000;">'{0}/{1}.gofr'</span>.<span style="color: #006FE0;">format</span>(wd, filename))
+
+<span style="color: #0000FF;">def</span> <span style="color: #006699;">read_pair_corr</span>(filepath):
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #008000;">'''Reads the pair correlation function from a gofr file'''</span>
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #0000FF;">return</span> np.loadtxt(filepath, skiprows=3, unpack=<span style="color: #D0372D;">True</span>)
+
+<span style="color: #0000FF;">def</span> <span style="color: #006699;">read_msd</span>(filepath):
+   <span style="color: #008000;">'''Reads the mean square displacement from the rcorr file'''</span>
+   <span style="color: #0000FF;">return</span> np.loadtxt(filepath, skiprows=4, unpack=<span style="color: #D0372D;">True</span>)
+
+<span style="color: #0000FF;">def</span> <span style="color: #006699;">read_vel_corr</span>(filepath):
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #008000;">'''Reads the velocity correlation function from the vcorr file'''</span>
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #0000FF;">return</span> np.loadtxt(filepath, skiprows=4, unpack=<span style="color: #D0372D;">True</span>)
+
+<span style="color: #0000FF;">def</span> <span style="color: #006699;">read_power_spectrum</span>(filepath):
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #008000;">'''</span>
+<span style="color: #008000;">    Reads the power spectrum from a pspect file</span>
+<span style="color: #008000;">    '''</span><span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #0000FF;">return</span> np.loadtxt(filepath, unpack=<span style="color: #D0372D;">True</span>)
+   
+<span style="color: #0000FF;">def</span> <span style="color: #006699;">msd_slope_and_interval</span>(t, msd, tstart=0):
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #008000;">'''</span>
+<span style="color: #008000;">    Linear regression fitting for MSD data</span>
+<span style="color: #008000;">    '''</span>
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #BA36A5;">t_stack</span> = np.column_stack([t[tstart:]**1, t[tstart:]**0])
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #BA36A5;">b</span>, <span style="color: #BA36A5;">res</span>, <span style="color: #BA36A5;">rank</span>, <span style="color: #BA36A5;">s</span> = np.linalg.lstsq(t_stack, msd)
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #BA36A5;">slope</span>, <span style="color: #BA36A5;">interval</span> = b
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #0000FF;">return</span> slope, interval
+
+<span style="color: #0000FF;">def</span> <span style="color: #006699;">get_D_einstien</span>(t, msd, tstart=0, d=3):
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #008000;">'''Diffusion coefficient from Einstien relation'''</span>
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #BA36A5;">slope</span>, <span style="color: #BA36A5;">interval</span> = msd_slope_and_interval(t, msd, tstart) 
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #0000FF;">return</span> slope / 2. / d
+
+<span style="color: #0000FF;">def</span> <span style="color: #006699;">get_D_greenkubo</span>(t, vcorr):
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #008000;">'''Diffusion coefficeint from Green-Kubo</span>
+<span style="color: #008000;">    Probably better to make this continuous</span>
+<span style="color: #008000;">    '''</span>
+<span style="color: #9B9B9B; background-color: #EDEDED;"> </span>   <span style="color: #0000FF;">return</span> np.<span style="color: #006FE0;">abs</span>(np.<span style="color: #006FE0;">sum</span>(t * vcorr / 3) /<span style="color: #006FE0;">len</span>(vcorr))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: <span class="timestamp-wrapper"><span class="timestamp">&lt;2015-03-06 Fri&gt;</span></span></p>
+<p class="author">Author: Prateek Mehta</p>
+<p class="date">Created: 2015-03-06 Fri 21:31</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.3 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

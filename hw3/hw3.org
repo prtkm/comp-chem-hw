@@ -1,8 +1,13 @@
+#+TITLE: Computational Chemistry Homework 3
+#+AUTHOR: Prateek Mehta
+#+DATE: <2015-03-06 Fri>
+#+OPTIONS: ^:{} # make super/subscripts only when wrapped in {}
+#+OPTIONS: toc:nil # suppress toc, so we can put it where we want
 
 
 * Plotting useful quantities
 
-To plot these and for some convenient analysis functions I defined some convenience functions. See this [[*Python Utilities for reading OpenMD files][section]] for more details.
+To plot these and for some convenient analysis functions I defined some python utility functions. See this [[*Python Utilities for reading OpenMD files][section]] for more details.
 
 ** Pair correlation functions
 
@@ -30,7 +35,6 @@ plt.savefig('images/gofr.png', dpi=200)
 #+RESULTS:
 
 #+ATTR_HTML: :width 400
-#+ATTR_ORG: :width 400
 [[./images/gofr.png]]
 
 ** Mean Squared Displacement
@@ -55,7 +59,6 @@ plt.savefig('images/msd.png', dpi=300)
 #+RESULTS:
 
 #+ATTR_HTML: :width 400
-#+ATTR_ORG :width 400
 [[./images/msd.png]]
 
 
@@ -82,15 +85,12 @@ plt.savefig('images/vcorr.png', dpi=300)
 #+RESULTS:
 
 #+ATTR_HTML: :width 400
-#+ATTR_ORG: :width 400
 [[./images/vcorr.png]]
 
 
 
 
 * Methanol MD Trajectory
-
-See:
 
 [[file:images/methanol.gif]]
 
@@ -167,7 +167,7 @@ plt.savefig('images/pspect.png', dpi=300)
 
 #+RESULTS:
 
-#+ATTR_ORG: :width 400
+#+ATTR_HTML: :width 400
 [[./images/pspect.png]]
 
 * Python Utilities for reading OpenMD files
