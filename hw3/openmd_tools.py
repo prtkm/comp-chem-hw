@@ -12,7 +12,6 @@ def calculate_pair_corr(filename, atom1, atom2):
     subprocess.call(cmd, shell=True)
     return read_correlation_fn('{0}.gofr'.format(filename))
     
-
 def read_correlation_fn(filepath):
    return np.loadtxt(filepath, skiprows=3, unpack=True)
 
@@ -23,7 +22,8 @@ def read_msd(filepath):
 def read_vel_corr(filepath):
    return np.loadtxt(filepath, skiprows=4, unpack=True)
 
-#def plot_msd(t, msd, slope=True, tstart=0.):
+def read_power_spectrum(filepath):
+    return np.loadtxt(filepath, unpack=True)
    
 def msd_slope_and_interval(t, msd, tstart=0):
    t_stack = np.column_stack([t[tstart:]**1, t[tstart:]**0])
@@ -31,6 +31,9 @@ def msd_slope_and_interval(t, msd, tstart=0):
    slope, interval = b
    return slope, interval
 
-def get_diffusion_constant(t, msd, tstart=0, d=3):
+def get_D_einstien(t, msd, tstart=0, d=3):
    slope, interval = msd_slope_and_interval(t, msd, tstart) 
    return slope / 2. / d
+
+def get_D_greenkubo(t, vcorr):
+    return np.abs(np.sum(t * vcorr / 3) /len(vcorr))
