@@ -1,58 +1,14 @@
 
-* Plotting Quantities
 
-** Python Utilities for reading OpenMD files
+* Plotting useful quantities
 
-#+BEGIN_SRC python :tangle openmd_tools.py
-import numpy as np
-import itertools
-import subprocess
-import matplotlib.pyplot as plt
-
-def get_all_pairs(atomtypes):
-    return list(itertools.combinations_with_replacement(atomtypes, 2))
-
-def calculate_pair_corr(filename, atom1, atom2):
-    cmd = 'StaticProps -i {2}.dump -g --sele1="select {0}" --sele2="select {1}" > {0}-{1}.gofr'.format(atom1, atom2, filename)
-    subprocess.call(cmd, shell=True)
-    return read_correlation_fn('{0}.gofr'.format(filename))
-    
-def read_correlation_fn(filepath):
-   return np.loadtxt(filepath, skiprows=3, unpack=True)
-
-def read_msd(filepath):
-   '''Reads the mean square displacement from the rcorr file'''
-   return np.loadtxt(filepath, skiprows=4, unpack=True)
-
-def read_vel_corr(filepath):
-   return np.loadtxt(filepath, skiprows=4, unpack=True)
-
-def read_power_spectrum(filepath):
-    return np.loadtxt(filepath, unpack=True)
-   
-def msd_slope_and_interval(t, msd, tstart=0):
-   t_stack = np.column_stack([t[tstart:]**1, t[tstart:]**0])
-   b, res, rank, s = np.linalg.lstsq(t_stack, msd)
-   slope, interval = b
-   return slope, interval
-
-def get_D_einstien(t, msd, tstart=0, d=3):
-   slope, interval = msd_slope_and_interval(t, msd, tstart) 
-   return slope / 2. / d
-
-def get_D_greenkubo(t, vcorr):
-    return np.abs(np.sum(t * vcorr / 3) /len(vcorr))
-
-
-#+END_SRC
-
-
+To plot these and for some convenient analysis functions I defined some convenience functions. See this [[*Python Utilities for reading OpenMD files][section]] for more details.
 
 ** Pair correlation functions
 
 Here we use a python function ~calculate_pair_corr~ to automate the collection of pair correlation data over all pairs of atom types. (I hope I got the function right!).
 
-#+BEGIN_SRC python
+#+BEGIN_SRC python :exports both
 from openmd_tools import *
 import matplotlib.pyplot as plt
 
@@ -61,7 +17,7 @@ pairs = get_all_pairs(['CT', 'OH', 'HO', 'H1'])
 plt.figure(figsize=(6, 10))
 for i, pair in enumerate(pairs):
     plt.subplot(5, 2, i+1)
-    r, gr = calculate_pair_corr('./calculations/collection', *pair)
+    r, gr = calculate_pair_corr('calculations/collection.dump', *pair)
     plt.plot(r, gr, lw=2)
     plt.title('{0}-{1}'.format(*pair))
     plt.xlabel('r ($\AA$)')
@@ -73,12 +29,15 @@ plt.savefig('images/gofr.png', dpi=200)
 
 #+RESULTS:
 
+#+ATTR_HTML: :width 400
 #+ATTR_ORG: :width 400
 [[./images/gofr.png]]
 
 ** Mean Squared Displacement
+   
+The plot is shown below.
 
-#+BEGIN_SRC python
+#+BEGIN_SRC python :exports both
 from openmd_tools import read_msd
 import matplotlib.pyplot as plt
 
@@ -95,13 +54,16 @@ plt.savefig('images/msd.png', dpi=300)
 
 #+RESULTS:
 
+#+ATTR_HTML: :width 400
 #+ATTR_ORG :width 400
 [[./images/msd.png]]
 
 
 ** Velocity Autocorrelation Function
+
+The plot for the normalized velocity autocorrelation function is shown below.
    
-#+BEGIN_SRC python
+#+BEGIN_SRC python :exports both
 from openmd_tools import read_vel_corr
 import matplotlib.pyplot as plt
 
@@ -119,18 +81,29 @@ plt.savefig('images/vcorr.png', dpi=300)
 
 #+RESULTS:
 
+#+ATTR_HTML: :width 400
 #+ATTR_ORG: :width 400
 [[./images/vcorr.png]]
 
 
 
 
+* Methanol MD Trajectory
+
+See:
+
+[[file:images/methanol.gif]]
+
 * Diffusion Constants
 
-#+BEGIN_SRC python
+To calculate the diffusion constant from the slope of the MSD data we perform a linear regression fit to estimate the slope. The value calculated from the Green-Kubo relations matches fairly well with the
+Einstien relation, considering the small magnitude of the quantity. One source that might have introduced some error is my approach of calculating D_{Green-Kubo} without non-discretizing it. Both calculated values are very close the to experimental value of of 1.46e-9 m^{2}/s reported in this [[http://pubs.acs.org/doi/abs/10.1021/j100270a039][paper]].
+
+
+#+BEGIN_SRC python :results org :exports both
 from openmd_tools import *
 import matplotlib.pyplot as plt
-
+import numpy as np
 
 t, msd = read_msd('calculations/collection.rcorr')
 slope, interval = msd_slope_and_interval(t, msd, tstart=0)
@@ -146,21 +119,27 @@ plt.ylim(0,275)
 plt.locator_params(nbins=5, axis='x')
 plt.tight_layout()
 plt.savefig('images/msd-fit.png', dpi=300)
-print get_D_einstien(t, msd)
+
+D_einstien = get_D_einstien(t, msd) * 1e-5 # A**2/fs to m**2/s
+print ('The Diffusion coefficient from the Einstien Relation is : {0:1.3f}e-9 m^{{2}}/s'.format(D_einstien*1e9))
 
 t, vcorr = read_vel_corr('calculations/fine.vcorr')
-
-print get_D_greenkubo(t, vcorr)
-
+D_gk = get_D_greenkubo(t, vcorr) * 1e-5 #A**2/fs to m**2/s
+print('The Diffusion coefficient from the Green-Kubo Relation is : {0:1.3f}e-9 m^{{2}}/s'.format(D_gk*1e9))
 #+END_SRC
 
 #+RESULTS:
-: 0.000163842032937
-: 0.000101680017978
+#+BEGIN_SRC org
+The Diffusion coefficient from the Einstien Relation is : 1.638e-9 m^{2}/s
+The Diffusion coefficient from the Green-Kubo Relation is : 1.017e-9 m^{2}/s
+#+END_SRC
 
+#+ATTR_HTML: :width 400
 [[./images/msd-fit.png]]
 
 * Power Spectrum
+
+The plot of the power spectrum is shown below.
 
 #+BEGIN_SRC sh
 vcorr2spectrum -f calculations/fine.vcorr -o calculations/fine.pspect
@@ -190,3 +169,83 @@ plt.savefig('images/pspect.png', dpi=300)
 
 #+ATTR_ORG: :width 400
 [[./images/pspect.png]]
+
+* Python Utilities for reading OpenMD files
+  
+Here we define some python utility functions that will help with the various problems in this problem set. This file is available at [[./openmd_tools.py]]. 
+
+#+BEGIN_SRC python :tangle openmd_tools.py
+import numpy as np
+import itertools
+import subprocess
+import matplotlib.pyplot as plt
+import os
+
+def get_all_pairs(atomtypes):
+    '''
+    Returns a list of all possible pairs from a list of atomic speicies.
+    '''
+    return list(itertools.combinations_with_replacement(atomtypes, 2))
+
+def calculate_pair_corr(filepath, atom1, atom2):
+    '''
+    Convenience function to provide for fast calculations of pair correlation functions
+    Strangely, I could not get StaticProps to dump to a specified folder/file, 
+    so we have to take care to change directories and return data
+    '''
+    try:
+        # If a path is spefified
+        wd, filename = filepath.rsplit('.')[0].split('/')
+    except:
+        # If only filename is specified
+        filename = filepath.rsplit('.')
+        wd = '.'
+        
+    cmd = 'StaticProps -i {2}.dump -g --sele1="select {0}" --sele2="select {1}" '
+    cmd = cmd.format(atom1, atom2, filename)
+    cwd = os.getcwd()
+    os.chdir(wd)
+    subprocess.call(cmd, shell=True)
+    os.chdir(cwd)
+    return read_pair_corr('{0}/{1}.gofr'.format(wd, filename))
+
+def read_pair_corr(filepath):
+    '''Reads the pair correlation function from a gofr file'''
+    return np.loadtxt(filepath, skiprows=3, unpack=True)
+
+def read_msd(filepath):
+   '''Reads the mean square displacement from the rcorr file'''
+   return np.loadtxt(filepath, skiprows=4, unpack=True)
+
+def read_vel_corr(filepath):
+    '''Reads the velocity correlation function from the vcorr file'''
+    return np.loadtxt(filepath, skiprows=4, unpack=True)
+
+def read_power_spectrum(filepath):
+    '''
+    Reads the power spectrum from a pspect file
+    '''    
+    return np.loadtxt(filepath, unpack=True)
+   
+def msd_slope_and_interval(t, msd, tstart=0):
+    '''
+    Linear regression fitting for MSD data
+    '''
+    t_stack = np.column_stack([t[tstart:]**1, t[tstart:]**0])
+    b, res, rank, s = np.linalg.lstsq(t_stack, msd)
+    slope, interval = b
+    return slope, interval
+
+def get_D_einstien(t, msd, tstart=0, d=3):
+    '''Diffusion coefficient from Einstien relation'''
+    slope, interval = msd_slope_and_interval(t, msd, tstart) 
+    return slope / 2. / d
+
+def get_D_greenkubo(t, vcorr):
+    '''Diffusion coefficeint from Green-Kubo
+    Probably better to make this continuous
+    '''
+    return np.abs(np.sum(t * vcorr / 3) /len(vcorr))
+#+END_SRC
+
+
