@@ -1,0 +1,11 @@
+#!/bin/bash
+#$ -N Equil
+#$ -pe smp 8
+#$ -m abe
+#$ -q *@@schneider
+
+module unload intel
+module load openmd
+
+mpirun -np $NSLOTS openmd_MPI fine3.md
+
