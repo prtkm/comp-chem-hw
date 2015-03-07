@@ -1,6 +1,7 @@
 
+* Plotting Quantities
 
-* Some python convenience functions to help with the homework
+** Python Utilities for reading OpenMD files
 
 #+BEGIN_SRC python :tangle openmd_tools.py
 import numpy as np
@@ -16,7 +17,6 @@ def calculate_pair_corr(filename, atom1, atom2):
     subprocess.call(cmd, shell=True)
     return read_correlation_fn('{0}.gofr'.format(filename))
     
-
 def read_correlation_fn(filepath):
    return np.loadtxt(filepath, skiprows=3, unpack=True)
 
@@ -27,7 +27,8 @@ def read_msd(filepath):
 def read_vel_corr(filepath):
    return np.loadtxt(filepath, skiprows=4, unpack=True)
 
-#def plot_msd(t, msd, slope=True, tstart=0.):
+def read_power_spectrum(filepath):
+    return np.loadtxt(filepath, unpack=True)
    
 def msd_slope_and_interval(t, msd, tstart=0):
    t_stack = np.column_stack([t[tstart:]**1, t[tstart:]**0])
@@ -35,9 +36,157 @@ def msd_slope_and_interval(t, msd, tstart=0):
    slope, interval = b
    return slope, interval
 
-def get_diffusion_constant(t, msd, tstart=0, d=3):
+def get_D_einstien(t, msd, tstart=0, d=3):
    slope, interval = msd_slope_and_interval(t, msd, tstart) 
    return slope / 2. / d
+
+def get_D_greenkubo(t, vcorr):
+    return np.abs(np.sum(t * vcorr / 3) /len(vcorr))
+
+
 #+END_SRC
 
-More soon
+
+
+** Pair correlation functions
+
+Here we use a python function ~calculate_pair_corr~ to automate the collection of pair correlation data over all pairs of atom types. (I hope I got the function right!).
+
+#+BEGIN_SRC python
+from openmd_tools import *
+import matplotlib.pyplot as plt
+
+pairs = get_all_pairs(['CT', 'OH', 'HO', 'H1'])
+
+plt.figure(figsize=(6, 10))
+for i, pair in enumerate(pairs):
+    plt.subplot(5, 2, i+1)
+    r, gr = calculate_pair_corr('./calculations/collection', *pair)
+    plt.plot(r, gr, lw=2)
+    plt.title('{0}-{1}'.format(*pair))
+    plt.xlabel('r ($\AA$)')
+    plt.ylabel('g(r)')    
+    plt.locator_params(nbins=3)
+plt.tight_layout()
+plt.savefig('images/gofr.png', dpi=200)
+#+END_SRC
+
+#+RESULTS:
+
+#+ATTR_ORG: :width 400
+[[./images/gofr.png]]
+
+** Mean Squared Displacement
+
+#+BEGIN_SRC python
+from openmd_tools import read_msd
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(3,4))
+t, msd = read_msd('calculations/collection.rcorr')
+plt.plot(t/1000.,msd, lw=2)
+plt.ylabel('MSD ($\AA^{2}$)')
+plt.xlabel('Time (ps)')
+plt.ylim(0,275)
+plt.locator_params(nbins=5, axis='x')
+plt.tight_layout()
+plt.savefig('images/msd.png', dpi=300)
+#+END_SRC
+
+#+RESULTS:
+
+#+ATTR_ORG :width 400
+[[./images/msd.png]]
+
+
+** Velocity Autocorrelation Function
+   
+#+BEGIN_SRC python
+from openmd_tools import read_vel_corr
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(3,4))
+t, vcorr = read_vel_corr('calculations/fine.vcorr')
+plt.plot(t/1000.,vcorr/vcorr[0], lw=1)
+plt.ylabel('Velocity Autocorrelation Function')
+plt.xlabel('Time (ps)')
+plt.xlim(0,1.5)
+plt.ylim(-0.3, 1)
+plt.locator_params(nbins=5, axis='x')
+plt.tight_layout()
+plt.savefig('images/vcorr.png', dpi=300)
+#+END_SRC
+
+#+RESULTS:
+
+#+ATTR_ORG: :width 400
+[[./images/vcorr.png]]
+
+
+
+
+* Diffusion Constants
+
+#+BEGIN_SRC python
+from openmd_tools import *
+import matplotlib.pyplot as plt
+
+
+t, msd = read_msd('calculations/collection.rcorr')
+slope, interval = msd_slope_and_interval(t, msd, tstart=0)
+msd2 = np.dot(np.column_stack([t**1, t**0]), np.array([slope, interval]))
+
+plt.figure(figsize=(3,4))
+plt.plot(t/1000, msd, lw=2, label='calculated data')
+plt.plot(t/1000, msd2, 'r--', lw=2, label='linear fit')
+plt.ylabel('MSD ($\AA^{2}$)')
+plt.xlabel('Time (ps)')
+plt.legend(loc='best', fontsize=8)
+plt.ylim(0,275)
+plt.locator_params(nbins=5, axis='x')
+plt.tight_layout()
+plt.savefig('images/msd-fit.png', dpi=300)
+print get_D_einstien(t, msd)
+
+t, vcorr = read_vel_corr('calculations/fine.vcorr')
+
+print get_D_greenkubo(t, vcorr)
+
+#+END_SRC
+
+#+RESULTS:
+: 0.000163842032937
+: 0.000101680017978
+
+[[./images/msd-fit.png]]
+
+* Power Spectrum
+
+#+BEGIN_SRC sh
+vcorr2spectrum -f calculations/fine.vcorr -o calculations/fine.pspect
+#+END_SRC
+
+#+RESULTS:
+: reading File
+
+#+BEGIN_SRC python
+from openmd_tools import read_power_spectrum
+import matplotlib.pyplot as plt
+
+t, p = read_power_spectrum('calculations/fine.pspect')
+
+plt.figure(figsize=(3,4))
+plt.plot(t / 1000, p * 1000, lw=1)
+plt.ylabel('Power (arb. units)')
+plt.xlabel('Time (ps)')
+plt.xlim(0, 1.65)
+plt.locator_params(nbins=5, axis='x')
+plt.tight_layout()
+plt.savefig('images/pspect.png', dpi=300)
+
+#+END_SRC
+
+#+RESULTS:
+
+#+ATTR_ORG: :width 400
+[[./images/pspect.png]]
