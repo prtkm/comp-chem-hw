@@ -53,7 +53,7 @@ plt.xlabel('Time (ps)')
 plt.ylim(0,275)
 plt.locator_params(nbins=5, axis='x')
 plt.tight_layout()
-plt.savefig('images/msd.png', dpi=300)
+plt.savefig('images/msd.png', dpi=200)
 #+END_SRC
 
 #+RESULTS:
@@ -79,7 +79,7 @@ plt.xlim(0,1.5)
 plt.ylim(-0.3, 1)
 plt.locator_params(nbins=5, axis='x')
 plt.tight_layout()
-plt.savefig('images/vcorr.png', dpi=300)
+plt.savefig('images/vcorr.png', dpi=200)
 #+END_SRC
 
 #+RESULTS:
@@ -118,7 +118,7 @@ plt.legend(loc='best', fontsize=8)
 plt.ylim(0,275)
 plt.locator_params(nbins=5, axis='x')
 plt.tight_layout()
-plt.savefig('images/msd-fit.png', dpi=300)
+plt.savefig('images/msd-fit.png', dpi=200)
 
 D_einstien = get_D_einstien(t, msd) * 1e-5 # A**2/fs to m**2/s
 print ('The Diffusion coefficient from the Einstien Relation is : {0:1.3f}e-9 m^{{2}}/s'.format(D_einstien*1e9))
@@ -161,8 +161,7 @@ plt.xlabel('Time (ps)')
 plt.xlim(0, 1.65)
 plt.locator_params(nbins=5, axis='x')
 plt.tight_layout()
-plt.savefig('images/pspect.png', dpi=300)
-
+plt.savefig('images/pspect.png', dpi=200)
 #+END_SRC
 
 #+RESULTS:
