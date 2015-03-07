@@ -29,7 +29,7 @@ for i, pair in enumerate(pairs):
     plt.ylabel('g(r)')    
     plt.locator_params(nbins=3)
 plt.tight_layout()
-plt.savefig('images/gofr.png', dpi=200)
+plt.savefig('images/gofr.png', dpi=100)
 #+END_SRC
 
 #+RESULTS:
@@ -53,7 +53,7 @@ plt.xlabel('Time (ps)')
 plt.ylim(0,275)
 plt.locator_params(nbins=5, axis='x')
 plt.tight_layout()
-plt.savefig('images/msd.png', dpi=200)
+plt.savefig('images/msd.png', dpi=100)
 #+END_SRC
 
 #+RESULTS:
@@ -79,7 +79,7 @@ plt.xlim(0,1.5)
 plt.ylim(-0.3, 1)
 plt.locator_params(nbins=5, axis='x')
 plt.tight_layout()
-plt.savefig('images/vcorr.png', dpi=200)
+plt.savefig('images/vcorr.png', dpi=100)
 #+END_SRC
 
 #+RESULTS:
@@ -100,7 +100,7 @@ To calculate the diffusion constant from the slope of the MSD data we perform a 
 Einstien relation, considering the small magnitude of the quantity. One source that might have introduced some error is my approach of calculating D_{Green-Kubo} without non-discretizing it. Both calculated values are very close the to experimental value of of 1.46e-9 m^{2}/s reported in this [[http://pubs.acs.org/doi/abs/10.1021/j100270a039][paper]].
 
 
-#+BEGIN_SRC python :results org :exports both
+#+BEGIN_SRC python :results raw :exports both
 from openmd_tools import *
 import matplotlib.pyplot as plt
 import numpy as np
@@ -118,7 +118,7 @@ plt.legend(loc='best', fontsize=8)
 plt.ylim(0,275)
 plt.locator_params(nbins=5, axis='x')
 plt.tight_layout()
-plt.savefig('images/msd-fit.png', dpi=200)
+plt.savefig('images/msd-fit.png', dpi=100)
 
 D_einstien = get_D_einstien(t, msd) * 1e-5 # A**2/fs to m**2/s
 print ('The Diffusion coefficient from the Einstien Relation is : {0:1.3f}e-9 m^{{2}}/s'.format(D_einstien*1e9))
@@ -129,10 +129,9 @@ print('The Diffusion coefficient from the Green-Kubo Relation is : {0:1.3f}e-9 m
 #+END_SRC
 
 #+RESULTS:
-#+BEGIN_SRC org
 The Diffusion coefficient from the Einstien Relation is : 1.638e-9 m^{2}/s
 The Diffusion coefficient from the Green-Kubo Relation is : 1.017e-9 m^{2}/s
-#+END_SRC
+
 
 #+ATTR_HTML: :width 400
 [[./images/msd-fit.png]]
@@ -161,7 +160,7 @@ plt.xlabel('Time (ps)')
 plt.xlim(0, 1.65)
 plt.locator_params(nbins=5, axis='x')
 plt.tight_layout()
-plt.savefig('images/pspect.png', dpi=200)
+plt.savefig('images/pspect.png', dpi=100)
 #+END_SRC
 
 #+RESULTS:
