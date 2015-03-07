@@ -100,7 +100,7 @@ To calculate the diffusion constant from the slope of the MSD data we perform a 
 Einstien relation, considering the small magnitude of the quantity. One source that might have introduced some error is my approach of calculating D_{Green-Kubo} without non-discretizing it. Both calculated values are very close the to experimental value of of 1.46e-9 m^{2}/s reported in this [[http://pubs.acs.org/doi/abs/10.1021/j100270a039][paper]].
 
 
-#+BEGIN_SRC python :results raw :exports both
+#+BEGIN_SRC python :exports both
 from openmd_tools import *
 import matplotlib.pyplot as plt
 import numpy as np
@@ -121,16 +121,16 @@ plt.tight_layout()
 plt.savefig('images/msd-fit.png', dpi=100)
 
 D_einstien = get_D_einstien(t, msd) * 1e-5 # A**2/fs to m**2/s
-print ('The Diffusion coefficient from the Einstien Relation is : {0:1.3f}e-9 m^{{2}}/s'.format(D_einstien*1e9))
+print ('The Diffusion coefficient from the Einstien Relation is {0:1.3f}e-9 m^{{2}}/s'.format(D_einstien*1e9))
 
 t, vcorr = read_vel_corr('calculations/fine.vcorr')
 D_gk = get_D_greenkubo(t, vcorr) * 1e-5 #A**2/fs to m**2/s
-print('The Diffusion coefficient from the Green-Kubo Relation is : {0:1.3f}e-9 m^{{2}}/s'.format(D_gk*1e9))
+print('The Diffusion coefficient from the Green-Kubo Relation is {0:1.3f}e-9 m^{{2}}/s'.format(D_gk*1e9))
 #+END_SRC
 
 #+RESULTS:
-The Diffusion coefficient from the Einstien Relation is : 1.638e-9 m^{2}/s
-The Diffusion coefficient from the Green-Kubo Relation is : 1.017e-9 m^{2}/s
+: The Diffusion coefficient from the Einstien Relation is : 1.638e-9 m^{2}/s
+: The Diffusion coefficient from the Green-Kubo Relation is : 1.017e-9 m^{2}/s
 
 
 #+ATTR_HTML: :width 400
