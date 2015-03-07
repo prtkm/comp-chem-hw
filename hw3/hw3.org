@@ -97,7 +97,7 @@ plt.savefig('images/vcorr.png', dpi=100)
 * Diffusion Constants
 
 To calculate the diffusion constant from the slope of the MSD data we perform a linear regression fit to estimate the slope. The value calculated from the Green-Kubo relations matches fairly well with the
-Einstien relation, considering the small magnitude of the quantity. One source that might have introduced some error is my approach of calculating D_{Green-Kubo} without non-discretizing it. Both calculated values are very close the to experimental value of of 1.46e-9 m^{2}/s reported in this [[http://pubs.acs.org/doi/abs/10.1021/j100270a039][paper]].
+Einstien relation. One source that might have introduced some error is my approach of calculating D_{Green-Kubo} without non-discretizing it. Both calculated values are very close the to experimental value of of 1.46e-9 m^{2}/s reported in this [[http://pubs.acs.org/doi/abs/10.1021/j100270a039][paper]].
 
 
 #+BEGIN_SRC python :exports both :results raw
