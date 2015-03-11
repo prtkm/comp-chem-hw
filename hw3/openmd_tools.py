@@ -66,5 +66,7 @@ def get_D_einstien(t, msd, tstart=0, d=3):
     return slope / 2. / d
 
 def get_D_greenkubo(t, vcorr):
-    '''Diffusion coefficeint from Green-Kubo'''
-    return np.abs(np.sum(t * vcorr / 3) /len(vcorr))
+    '''Diffusion coefficeint from Green-Kubo
+    Probably better to make this continuous
+    '''
+    return np.abs(np.trapz(vcorr, t) * 1/ 3.)

@@ -97,7 +97,7 @@ plt.savefig('images/vcorr.png', dpi=100)
 * Diffusion Constants
 
 To calculate the diffusion constant from the slope of the MSD data we perform a linear regression fit to estimate the slope. The value calculated from the Green-Kubo relations matches fairly well with the
-Einstien relation. One source that might have introduced some error is my approach of calculating D_{Green-Kubo} without non-discretizing it. Both calculated values are very close the to experimental value of of 1.46e-9 m^{2}/s reported in this [[http://pubs.acs.org/doi/abs/10.1021/j100270a039][paper]].
+Einstien relation. The velocity autocorrelation data is rather noisy, and is known not to produce very good estimates of the diffusion coefficient. Both calculated values are very close the to experimental value of of 1.46e-9 m^{2}/s reported in this [[http://pubs.acs.org/doi/abs/10.1021/j100270a039][paper]].
 
 
 #+BEGIN_SRC python :exports both :results raw
@@ -131,11 +131,9 @@ print('The Diffusion coefficient from the Green-Kubo Relation is {0:1.3f}e-9 m^{
 #+RESULTS:
 The Diffusion coefficient from the Einstien Relation is 1.638e-9 m^{2}/s
 
-The Diffusion coefficient from the Green-Kubo Relation is 1.017e-9 m^{2}/s
+The Diffusion coefficient from the Green-Kubo Relation is 1.162e-9 m^{2}/s
 
 
-
-#+ATTR_HTML: :width 400
 [[./images/msd-fit.png]]
 
 * Power Spectrum
@@ -167,7 +165,7 @@ plt.savefig('images/pspect.png', dpi=100)
 
 #+RESULTS:
 
-#+ATTR_HTML: :width 400
+
 [[./images/pspect.png]]
 
 * Python Utilities for reading OpenMD files
@@ -245,7 +243,7 @@ def get_D_greenkubo(t, vcorr):
     '''Diffusion coefficeint from Green-Kubo
     Probably better to make this continuous
     '''
-    return np.abs(np.sum(t * vcorr / 3) /len(vcorr))
+    return np.abs(np.trapz(vcorr, t) * 1/ 3.)
 #+END_SRC
 
 
