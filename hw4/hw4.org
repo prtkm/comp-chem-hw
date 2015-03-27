@@ -92,6 +92,7 @@ print 'D = {0:1.3f}e-9 m$^{{2}}$/s'.format(get_D_einstien(t, msd, tstart=0, d=2)
 #+END_SRC
 
 #+RESULTS:
+
 D = 0.575e-9 m$^{2}$/s
 
 
@@ -108,4 +109,5 @@ print 'D = {0:1.3f}e-9 m$^{{2}}$/s'.format(get_D_einstien(t, msd, tstart=0, d=3)
 #+END_SRC
 
 #+RESULTS:
+
 D = 1.968e-9 m$^{2}$/s
