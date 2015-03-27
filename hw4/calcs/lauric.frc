@@ -1,0 +1,103 @@
+// This is a sample forcefield file for running a solvated United-Atom
+// (UA) model for a lauric acid bilayer in water.
+//
+// many parameters (but not all) are derived from:
+//
+// An Improved Force Field for the Prediction of the Vapor-Liquid
+// Equilibria for Carboxylic Acids Ganesh Kamath, Feng Cao, and Jeffrey
+// J. Potoff, J. Phys. Chem. B 2004, 108, 14130-14136 
+
+begin Options
+      Name                   "lauric"
+end Options
+
+begin BaseAtomTypes    
+//Name		mass	 (amu)  nelectron
+C               12.0107         6
+H               1.0079          1
+O               15.9994         8
+end BaseAtomTypes
+
+begin AtomTypes
+CH3		C       15.04		
+CH2		C       14.03
+CH2C            CH2
+C2              C
+O2              O
+OH              O
+HO              H
+O_SPCE		O
+H_SPCE		H
+end AtomTypes
+
+begin LennardJonesAtomTypes
+//Name		epsilon		    sigma	
+O_SPCE    	0.15532         3.16549
+CH3       	0.185           3.75
+CH2       	0.091411        3.95
+C2              0.081475        3.9
+O2              0.156989        3.05
+OH              0.18481         3.02
+// only used for electron density profile!
+HO              0.0             2.5  
+end LennardJonesAtomTypes
+
+begin ChargeAtomTypes
+// Name 	charge
+O_SPCE   	-0.8476
+H_SPCE    	0.4238
+C2              0.42
+O2              -0.45
+OH              -0.46
+HO              0.37
+CH2C            0.12
+end ChargeAtomTypes
+
+begin BondTypes
+//Atom1 Atom2   Harmonic        b0              Kb (kcal/mol)
+//V_Harmonic = 0.5*Kb(b- bo)^2
+CH3	    CH2	Harmonic		1.526		260
+CH2	    CH2	Harmonic		1.522		260
+CH2         C2  Harmonic                1.520           158.5
+C2          O2  Harmonic                1.214           285
+C2          OH  Harmonic                1.364           225
+OH          HO  Harmonic                0.970           276.5
+end BondTypes
+
+begin BendTypes
+//Harmonic
+//Atom1 Atom2   Atom3   Harmonic        Theta0  Ktheta
+//V_Harmonic = 0.5*Ktheta(Theta - Theta0)^2
+//Ktheta: kcal/mole/rad**2
+//Theta0: degrees
+//Harmonic examples
+//
+HO      OH      C2      Harmonic        107.0   34.975
+OH      C2      O2      Harmonic        123.0   80.08
+OH      C2      CH2     Harmonic        111.0   70.15
+O2      C2      CH2     Harmonic        126.0   80.08
+C2      CH2     CH2     Harmonic        114.0   117.68
+CH3	CH2	CH2	Harmonic	114.0	117.68
+CH2	CH2	CH2	Harmonic	114.0	117.68
+end BendTypes
+
+begin TorsionTypes
+//Cubic
+//Atom1 Atom2   Atom3   Atom4   Cubic           k3              k2              k1              k0  ( all are kcal/mol )
+//V_Cubic = k3(cos phi)^3 + k2(cos phi)^2 + k1(cos phi) + k0
+CH3	CH2	CH2	CH2	Cubic		5.9602		-0.2568		-3.802		2.1586
+CH2	CH2	CH2	CH2	Cubic		5.9602		-0.2568		-3.802		2.1586
+CH2     CH2     CH2     C2	Cubic		5.9602		-0.2568		-3.802		2.1586
+//Opls
+//Atom1 Atom2   Atom3   Atom4   Opls       v0         v1       v2        v3    ( all are kcal/mol )
+//V_Opls = 0.5* (v1*(1+cos(phi)) + v2*(1-cos(2*phi)) + v3*(1+cos(3*phi)))
+CH2     CH2     C2      O2      Opls       0.0       0.0       0.82      0.0
+CH2     CH2     C2      OH      Opls       0.0       0.000     0.000     0.000    
+CH2     C2      OH      HO      Opls       0.0       3.000     4.900     0.00
+O2      C2      OH      HO      Opls       0.0       0.000     4.900     0.00
+end TorsionTypes
+
+
+begin InversionTypes
+C2       CH2      OH      O2      AmberImproper   10.5
+end InversionTypes

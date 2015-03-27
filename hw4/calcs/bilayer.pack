@@ -1,0 +1,59 @@
+#
+# Lipid bilayer
+#
+
+# Every atom from all molecules will be at least 4.5 Angstroms 
+# away from each other at the final configuration.
+
+tolerance 4.5 
+
+# Coordinate file types will be in xyz format (keyword not required for
+# pdb file format, but required for tinker, xyz or moldy).
+
+filetype xyz
+
+# The output xyz file
+
+output bilayer.xyz
+
+# There will be 2 sections below, 
+#  1) bottom leaf of bilayer                 0 < z < 16
+#  2) upper leaf of bilayer                 17 < z < 33
+
+# First lipid layer: the polar head is oriented down to the water
+# molecules. 18 lipids will be put inside a box of side 20 in the x and y
+# directions and 16 in the z direction (16 is a little more than that
+# length of the lipid). Atom 14 of the xyz file of this lipid,
+# which is the Oxygen on the hydroxyl group, will be constrained to be
+# below the the plane z = 2, and atom 1, which is the carbon
+# on the hydrophobic end will be constrained to be over the plane
+# z = 12. Therefore, all the lipids will be oriented, with their polar
+# heads pointing to the water box below. 
+ 
+structure lauricAcid.xyz 
+  number 18
+  inside box 0. 0. 0. 20. 20. 16.
+  atoms 14 
+    below plane 0. 0. 1. 2.
+  end atoms
+  atoms 1
+    over plane 0. 0. 1. 12.
+  end atoms
+end structure 
+
+# Second lipid layer: the polar head points up to the water molecules. 
+# The same thing as the input above, but defining a new lipid layer,
+# with the oposite orientation of the lipid molecules in such a way that
+# the polar head points to the water box that is over the lipid bilayer.
+# We also include a 1 angstrom gap between the two leaves.
+  
+structure lauricAcid.xyz 
+  number 18
+  inside box 0. 0. 17. 20. 20. 33.
+  atoms 1
+    below plane 0. 0. 1. 19.
+  end atoms
+  atoms 14
+    over plane 0. 0. 1. 31. 
+  end atoms
+end structure 

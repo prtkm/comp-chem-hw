@@ -1,0 +1,10 @@
+#!/bin/bash
+#$ -N OpenMD
+#$ -pe smp 8
+#$ -q long
+
+module unload intel
+module load openmd
+
+mpirun -np $NSLOTS openmd_MPI stable-longer.md
+

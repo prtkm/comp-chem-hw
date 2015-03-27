@@ -1,0 +1,111 @@
+
+* S_{CD} Order Parameter
+
+From the two lines in the figure we see that the disorder decreases as we move away from the tail, tending towards order perpendicular to the bilayer normal. The shorter run seems noisy, the longer run has a distinct downward slope, but it is strange that it curves up towards the end. It is likely we need even longer runtimes.
+
+#+BEGIN_SRC python
+import numpy as np
+import matplotlib.pyplot as plt
+f1 = 'calcs/stable.scd'
+f2 = 'calcs/stable-longer.scd'
+
+with open(f1) as f:
+
+   scd = [float(s) for s in f.readlines()[-1].split()]
+
+with open(f2) as f:
+   scd2 = [float(s) for s in f.readlines()[-1].split()]
+
+plt.plot(range(1, len(scd) + 1), scd, 'o--', label='50ps', lw=2, ms=10)
+plt.plot(range(1, len(scd2) + 1), scd2, 'o--', label='200ps', lw=2, ms=10)
+plt.legend()
+plt.xlabel('Position relative to tail CH3', fontsize=16)
+plt.ylabel('S$_{CD}$', fontsize=16)
+plt.savefig('images/scds.png')
+plt.tight_layout()
+plt.show()   
+
+#+END_SRC
+
+#+RESULTS:
+
+[[./images/scds.png]]
+
+* Charge density plots
+
+** Lauric Acid
+
+#+BEGIN_SRC python
+from openmd_tools import read_charge_density
+import matplotlib.pyplot as plt
+
+zs, density = read_charge_density('calcs/lauricAcid.density')
+
+plt.plot(zs, density, lw = 2)
+plt.xlabel('z-coordinate ($\AA$)', fontsize = 16)
+plt.ylabel('Electron Density', fontsize=16)
+plt.savefig('images/lauric-density.png')
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+
+[[./images/lauric-density.png]]
+
+** C2 atoms
+
+#+BEGIN_SRC python
+from openmd_tools import read_charge_density
+import matplotlib.pyplot as plt
+
+zs, density = read_charge_density('calcs/C2.density')
+
+plt.plot(zs, density, lw = 2)
+plt.xlabel('z-coordinate ($\AA$)', fontsize = 16)
+plt.ylabel('Electron Density', fontsize=16)
+plt.savefig('images/C2.png')
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+
+[[./images/C2.png]]
+
+
+** Better ways of doing electron density
+
+The electron density will depend on more than the atomic number of a given atom, e.g it will depend on the atom's position in the ring, the kind of atoms it is bonded to etc. A better way to do that would be charge partitioning and assignment of partial charges.
+
+* Diffusion coefficients
+
+
+** C2
+
+The diffusion is in 2-dimensions.
+
+#+BEGIN_SRC python :results raw
+from openmd_tools import *
+
+t, msd = read_msd('calcs/C2.msd')
+
+print 'D = {0:1.3f}e-9 m$^{{2}}$/s'.format(get_D_einstien(t, msd, tstart=0, d=2) * 1e4)
+#+END_SRC
+
+#+RESULTS:
+D = 0.575e-9 m$^{2}$/s
+
+
+** SPCE
+
+The diffusion is in 2-dimensions,
+
+#+BEGIN_SRC python :results raw
+from openmd_tools import *
+
+t, msd = read_msd('calcs/SPCE.msd')
+
+print 'D = {0:1.3f}e-9 m$^{{2}}$/s'.format(get_D_einstien(t, msd, tstart=0, d=3) * 1e4)
+#+END_SRC
+
+#+RESULTS:
+D = 1.968e-9 m$^{2}$/s
