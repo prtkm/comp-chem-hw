@@ -74,33 +74,30 @@ plt.show()
 
 ** Better ways of doing electron density
 
-The electron density will depend on more than the atomic number of a given atom, e.g it will depend on the atom's position in the ring, the kind of atoms it is bonded to etc. A better way to do that would be charge partitioning and assignment of partial charges.
+The electron density will depend on more than the atomic number of a given atom, e.g it will depend on the atom's position in the structure, the kind of atoms it is bonded to etc. A better way to do that would be charge partitioning and assignment of partial charges.
 
 * Diffusion coefficients
 
 
 ** C2
 
-The diffusion is in 2-dimensions.
+From visualizing the trajectory we find that the diffusion is in 2-dimensions.
 
-#+BEGIN_SRC python :results raw
+#+BEGIN_SRC python :exports both
 from openmd_tools import *
 
 t, msd = read_msd('calcs/C2.msd')
 
-print 'D = {0:1.3f}e-9 m$^{{2}}$/s'.format(get_D_einstien(t, msd, tstart=0, d=2) * 1e4)
+print 'D = {0:1.3f}e-9 m^{{2}}/s'.format(get_D_einstien(t, msd, tstart=0, d=2) * 1e4)
 #+END_SRC
 
 #+RESULTS:
-
-D = 0.575e-9 m$^{2}$/s
+: D = 0.575e-9 m^{2}/s
 
 
 ** SPCE
 
-The diffusion is in 2-dimensions,
-
-#+BEGIN_SRC python :results raw
+#+BEGIN_SRC python :exports both
 from openmd_tools import *
 
 t, msd = read_msd('calcs/SPCE.msd')
@@ -109,5 +106,4 @@ print 'D = {0:1.3f}e-9 m$^{{2}}$/s'.format(get_D_einstien(t, msd, tstart=0, d=3)
 #+END_SRC
 
 #+RESULTS:
-
-D = 1.968e-9 m$^{2}$/s
+: D = 1.968e-9 m$^{2}$/s
