@@ -81,29 +81,39 @@ The electron density will depend on more than the atomic number of a given atom,
 
 ** C2
 
-From visualizing the trajectory we find that the diffusion is in 2-dimensions.
+From visualizing the trajectory we find that the diffusion is in 2-dimensions. The mean square displacement is not very linear, we probably needed longer equilibration times.
 
-#+BEGIN_SRC python :exports both
+#+BEGIN_SRC python :exports both :results raw
 from openmd_tools import *
+import matplotlib.pyplot as plt
 
 t, msd = read_msd('calcs/C2.msd')
 
-print 'D = {0:1.3f}e-9 m^{{2}}/s'.format(get_D_einstien(t, msd, tstart=0, d=2) * 1e4)
+print 'D = {0:1.3f}e-9 m^{{2}}/s'.format(get_D_einstien(t, msd, d=2) * 1e4)
+
+plt.plot(t, msd, lw=2)
+plt.xlabel('time (fs)', fontsize=20)
+plt.ylabel('MSD ($\AA^{2}$)', fontsize=20)
+plt.savefig('images/C2-msd.png')
+plt.show()
 #+END_SRC
 
 #+RESULTS:
-: D = 0.575e-9 m^{2}/s
+D = 0.575e-9 m^{2}/s
+
+
+[[./images/C2-msd.png]]
 
 
 ** SPCE
 
-#+BEGIN_SRC python :exports both
+#+BEGIN_SRC python :exports both :results raw
 from openmd_tools import *
 
 t, msd = read_msd('calcs/SPCE.msd')
 
-print 'D = {0:1.3f}e-9 m$^{{2}}$/s'.format(get_D_einstien(t, msd, tstart=0, d=3) * 1e4)
+print 'D = {0:1.3f}e-9 m^{{2}}/s'.format(get_D_einstien(t, msd, tstart=0, d=3) * 1e4)
 #+END_SRC
 
 #+RESULTS:
-: D = 1.968e-9 m$^{2}$/s
+D = 1.968e-9 m^{2}/s
